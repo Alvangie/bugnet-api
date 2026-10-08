@@ -30,6 +30,21 @@
 
 A robust, secure, and scalable backend API for the **BugNet** issue tracking and bug reporting platform, built with NestJS, TypeScript, Prisma ORM, and PostgreSQL (Neon Serverless).
 
+## Project Information
+
+- **Author:** Angie Alvarez
+- **Origin Project:** Extended from Project 2 (Bug Reporting & Tracking System)
+- **Course:** Backend con NestJS - Proyecto Integrador 4
+
+---
+
+## Live Deployment & Links
+
+- **Repository:** [https://github.com/Alvangie/bugnet-api](https://github.com/Alvangie/bugnet-api)
+- **Live API Base URL:** [https://bugnet-api.onrender.com](https://bugnet-api.onrender.com)
+- **Interactive Swagger Docs:** [https://bugnet-api.onrender.com/api/docs](https://bugnet-api.onrender.com/api/docs)
+
+---
 ---
 
 ## Tech Stack
