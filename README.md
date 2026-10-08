@@ -25,36 +25,42 @@
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
- BugNet API 🐞
+ # BugNet API 🐞
 
 A robust, secure, and scalable backend API for the **BugNet** issue tracking and bug reporting platform, built with NestJS, TypeScript, Prisma ORM, and PostgreSQL (Neon Serverless).
 
 ---
 
-## Tech Stack
+##  Tech Stack
 
-- **Framework:** NestJS (Node.js)
-- **Language:** TypeScript
-- **Database:** PostgreSQL (Neon Serverless)
-- **ORM:** Prisma
-- **Authentication & Authorization:** JWT (JSON Web Tokens), Passport, Bcrypt
-- **Validation:** Class-Validator & Class-Transformer
-- **Security:** Helmet (HTTP headers), CORS, @nestjs/throttler (Rate Limiting)
-- **Interactive Documentation:** OpenAPI / Swagger
-
----
-
-## Security Features
-
-1. **Secure HTTP Headers:** Implemented via Helmet.
-2. **Rate Limiting:** Protects against brute-force attacks by limiting requests per IP.
-3. **CORS Enabled:** Cross-Origin Resource Sharing configured for trusted clients.
-4. **Strict Validation:** Payload sanitization with `whitelist: true` and `forbidNonWhitelisted: true`.
-5. **Data Ownership & Isolation:** Users can only view, edit, and delete their own bug reports and templates.
+| Technology | Main Use |
+|---|---|
+| NestJS | Backend framework (Node.js) |
+| TypeScript | Static typing and interfaces |
+| PostgreSQL | Relational database (Neon Serverless) |
+| Prisma ORM | Database ORM and schema management |
+| JWT / Passport | Authentication and session authorization |
+| Bcrypt | Password encryption and hashing |
+| Class-Validator | DTO data validation |
+| Helmet | HTTP secure header protection |
+| Throttler | Rate limiting and brute-force prevention |
+| Swagger | Interactive OpenAPI documentation |
 
 ---
 
-## ⚙️ Getting Started
+##  Security Features
+
+| Feature | Description |
+|---|---|
+| HTTP Headers | Implemented via Helmet |
+| Rate Limiting | Protects against brute-force attacks by limiting requests per IP |
+| CORS | Cross-Origin Resource Sharing configured for trusted clients |
+| Strict Validation | Payload sanitization with `whitelist: true` and `forbidNonWhitelisted: true` |
+| Resource Ownership | Users can only manage their own bug reports and templates |
+
+---
+
+## Getting Started
 
 ### Prerequisites
 
@@ -68,25 +74,3 @@ A robust, secure, and scalable backend API for the **BugNet** issue tracking and
    ```bash
    git clone [https://github.com/Alvangie/bugnet-api.git](https://github.com/Alvangie/bugnet-api.git)
    cd bugnet-api
-Install dependencies:Bashnpm install
-Configure environment variables:Create a .env file in the root directory:Fragmento de códigoDATABASE_URL="postgresql://user:password@host:5432/database?sslmode=require"
-JWT_SECRET="super_secret_access_key"
-JWT_REFRESH_SECRET="super_secret_refresh_key"
-JWT_EXPIRES_IN="15m"
-JWT_REFRESH_EXPIRES_IN="7d"
-PORT=3000
-Sync database schema:Bashnpx prisma db push
-npx prisma generate
-Running the ApplicationBash# Development mode (hot reload)
-npm run start:dev
-
-# Production build & start
-npm run build
-npm run start:prod
-Interactive Swagger documentation will be available at: http://localhost:3000/api/docs📌 
-API Endpoints
-Authentication (/auth)
-
-| Method | Endpoint | Description | Access
-|---|---|
-POST/auth/registerRegister a new userPublicPOST/auth/loginAuthenticate user and receive tokensPublicPOST/auth/refreshRenew access token using refresh tokenPublicPOST/auth/logoutInvalidate active session tokensBearer TokenGET/auth/meFetch authenticated user profileBearer Token Bug Reports (/bug-reports)MethodEndpointDescriptionAccessPOST/bug-reportsCreate a new bug reportBearer TokenGET/bug-reportsRetrieve user's bug reportsBearer TokenGET/bug-reports/:idRetrieve bug report details by IDBearer TokenPATCH/bug-reports/:idUpdate an existing bug reportBearer TokenDELETE/bug-reports/:idDelete a bug reportBearer Token Templates (/templates)MethodEndpointDescriptionAccessPOST/templatesCreate a new bug report templateBearer TokenGET/templatesList user's templatesBearer TokenGET/templates/:idRetrieve template details by IDBearer TokenPATCH/templates/:idUpdate an existing templateBearer TokenDELETE/templates/:idDelete a templateBearer Token
