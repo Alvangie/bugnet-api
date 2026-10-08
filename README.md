@@ -25,16 +25,17 @@
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
- # BugNet API 🐞
+
+# BugNet API 🐞
 
 A robust, secure, and scalable backend API for the **BugNet** issue tracking and bug reporting platform, built with NestJS, TypeScript, Prisma ORM, and PostgreSQL (Neon Serverless).
 
 ---
 
-##  Tech Stack
+## Tech Stack
 
 | Technology | Main Use |
-|---|---|
+| --- | --- |
 | NestJS | Backend framework (Node.js) |
 | TypeScript | Static typing and interfaces |
 | PostgreSQL | Relational database (Neon Serverless) |
@@ -48,14 +49,14 @@ A robust, secure, and scalable backend API for the **BugNet** issue tracking and
 
 ---
 
-##  Security Features
+## Security Features
 
 | Feature | Description |
-|---|---|
+| --- | --- |
 | HTTP Headers | Implemented via Helmet |
 | Rate Limiting | Protects against brute-force attacks by limiting requests per IP |
 | CORS | Cross-Origin Resource Sharing configured for trusted clients |
-| Strict Validation | Payload sanitization with `whitelist: true` and `forbidNonWhitelisted: true` |
+| Strict Validation | Payload sanitization with whitelist enabled |
 | Resource Ownership | Users can only manage their own bug reports and templates |
 
 ---
@@ -64,13 +65,94 @@ A robust, secure, and scalable backend API for the **BugNet** issue tracking and
 
 ### Prerequisites
 
-- **Node.js** (v18 or higher)
-- **npm** (v9 or higher)
+- Node.js (v18 or higher)
+- npm (v9 or higher)
 - PostgreSQL database instance
 
 ### Installation & Setup
 
-1. **Clone the repository:**
-   ```bash
-   git clone [https://github.com/Alvangie/bugnet-api.git](https://github.com/Alvangie/bugnet-api.git)
-   cd bugnet-api
+1. Clone the repository:
+```bash
+git clone [https://github.com/Alvangie/bugnet-api.git](https://github.com/Alvangie/bugnet-api.git)
+cd bugnet-api
+
+```
+
+2. Install dependencies:
+
+```bash
+npm install
+
+```
+
+3. Configure environment variables:
+Create a `.env` file in the root directory:
+
+```env
+DATABASE_URL="postgresql://user:password@host:5432/database?sslmode=require"
+JWT_SECRET="super_secret_access_key"
+JWT_REFRESH_SECRET="super_secret_refresh_key"
+JWT_EXPIRES_IN="15m"
+JWT_REFRESH_EXPIRES_IN="7d"
+PORT=3000
+
+```
+
+4. Sync database schema:
+
+```bash
+npx prisma db push
+npx prisma generate
+
+```
+
+---
+
+## Running the Application
+
+```bash
+# Development mode
+npm run start:dev
+
+# Production build & start
+npm run build
+npm run start:prod
+
+```
+
+Interactive documentation: `http://localhost:3000/api/docs`
+
+---
+
+##  API Endpoints
+
+### Authentication (`/auth`)
+
+| Method | Endpoint | Description | Access |
+| --- | --- | --- | --- |
+| POST | `/auth/register` | Register a new user | Public |
+| POST | `/auth/login` | Authenticate user and receive tokens | Public |
+| POST | `/auth/refresh` | Renew access token using refresh token | Public |
+| POST | `/auth/logout` | Invalidate active session tokens | Bearer Token |
+| GET | `/auth/me` | Fetch authenticated user profile | Bearer Token |
+
+### Bug Reports (`/bug-reports`)
+
+| Method | Endpoint | Description | Access |
+| --- | --- | --- | --- |
+| POST | `/bug-reports` | Create a new bug report | Bearer Token |
+| GET | `/bug-reports` | Retrieve user's bug reports | Bearer Token |
+| GET | `/bug-reports/:id` | Retrieve bug report details by ID | Bearer Token |
+| PATCH | `/bug-reports/:id` | Update an existing bug report | Bearer Token |
+| DELETE | `/bug-reports/:id` | Delete a bug report | Bearer Token |
+
+### Templates (`/templates`)
+
+| Method | Endpoint | Description | Access |
+| --- | --- | --- | --- |
+| POST | `/templates` | Create a new bug report template | Bearer Token |
+| GET | `/templates` | List user's templates | Bearer Token |
+| GET | `/templates/:id` | Retrieve template details by ID | Bearer Token |
+| PATCH | `/templates/:id` | Update an existing template | Bearer Token |
+| DELETE | `/templates/:id` | Delete a template | Bearer Token |
+
