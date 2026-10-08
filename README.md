@@ -25,100 +25,68 @@
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
-## Project setup
+ BugNet API 🐞
 
-```bash
-$ npm install
-```
+A robust, secure, and scalable backend API for the **BugNet** issue tracking and bug reporting platform, built with NestJS, TypeScript, Prisma ORM, and PostgreSQL (Neon Serverless).
 
-## Compile and run the project
+---
 
-```bash
-# development
-$ npm run start
+## Tech Stack
 
-# watch mode
-$ npm run start:dev
+- **Framework:** NestJS (Node.js)
+- **Language:** TypeScript
+- **Database:** PostgreSQL (Neon Serverless)
+- **ORM:** Prisma
+- **Authentication & Authorization:** JWT (JSON Web Tokens), Passport, Bcrypt
+- **Validation:** Class-Validator & Class-Transformer
+- **Security:** Helmet (HTTP headers), CORS, @nestjs/throttler (Rate Limiting)
+- **Interactive Documentation:** OpenAPI / Swagger
 
-# production mode
-$ npm run start:prod
-```
+---
 
-## Run tests
+## Security Features
 
-```bash
-# unit tests
-$ npm run test
+1. **Secure HTTP Headers:** Implemented via Helmet.
+2. **Rate Limiting:** Protects against brute-force attacks by limiting requests per IP.
+3. **CORS Enabled:** Cross-Origin Resource Sharing configured for trusted clients.
+4. **Strict Validation:** Payload sanitization with `whitelist: true` and `forbidNonWhitelisted: true`.
+5. **Data Ownership & Isolation:** Users can only view, edit, and delete their own bug reports and templates.
 
-# e2e tests
-$ npm run test:e2e
+---
 
-# test coverage
-$ npm run test:cov
-```
+## ⚙️ Getting Started
 
-## Deployment
+### Prerequisites
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+- **Node.js** (v18 or higher)
+- **npm** (v9 or higher)
+- PostgreSQL database instance
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+### Installation & Setup
 
-```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
-```
+1. **Clone the repository:**
+   ```bash
+   git clone [https://github.com/Alvangie/bugnet-api.git](https://github.com/Alvangie/bugnet-api.git)
+   cd bugnet-api
+Install dependencies:Bashnpm install
+Configure environment variables:Create a .env file in the root directory:Fragmento de códigoDATABASE_URL="postgresql://user:password@host:5432/database?sslmode=require"
+JWT_SECRET="super_secret_access_key"
+JWT_REFRESH_SECRET="super_secret_refresh_key"
+JWT_EXPIRES_IN="15m"
+JWT_REFRESH_EXPIRES_IN="7d"
+PORT=3000
+Sync database schema:Bashnpx prisma db push
+npx prisma generate
+Running the ApplicationBash# Development mode (hot reload)
+npm run start:dev
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+# Production build & start
+npm run build
+npm run start:prod
+Interactive Swagger documentation will be available at: http://localhost:3000/api/docs📌 
+API Endpoints
+Authentication (/auth)
 
-## Observability
-
-In production applications, observability is essential for understanding how your system behaves, detecting issues early, and maintaining reliable performance.
-
-[NestJS Observe](https://observe.nestjs.com) automatically instruments your NestJS application, giving you deep visibility into your system with minimal setup:
-
-- **Distributed tracing:** Follow requests across services and understand how they flow through your system.
-- **Waterfall analysis:** Visualize request execution and identify slow operations, bottlenecks, and unexpected delays.
-- **Performance analysis:** Analyze application performance in real time and quickly pinpoint areas that need optimization.
-- **Metrics:** Track key application and infrastructure metrics to understand system health and performance trends.
-- **Logging:** Centralize and correlate logs with traces and other telemetry to make debugging easier.
-- **Error tracking:** Detect errors quickly and investigate their root causes with the surrounding context.
-- **SLA monitoring:** Track service-level objectives and identify when your application is approaching or exceeding defined thresholds.
-- **Alarms and alerts:** Set up alerts for critical errors, performance degradation, SLA violations, and other anomalies so your team can react quickly.
-
-To add it to this project:
-
-```bash
-$ npm install @nestjs/observe
-```
-
-Then follow the [setup guide](https://docs.nestjs.com/observability/overview) - it takes a single import and an app key.
-
-The free plan needs no payment details and covers 300,000 events a month. You can also browse the [live demo](https://www.observe-demo.nestjs.com/dashboard) first - the whole dashboard over a busy service's data, with nothing to install.
-
-## Resources
-
-Check out a few resources that may come in handy when working with NestJS:
-
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Auto-instrument your application with [NestJS Observe](https://observe.nestjs.com). Distributed tracing, metrics, and logging made easy. Error tracking and performance monitoring for your NestJS applications.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+| Method | Endpoint | Description | Access
+|---|---|
+POST/auth/registerRegister a new userPublicPOST/auth/loginAuthenticate user and receive tokensPublicPOST/auth/refreshRenew access token using refresh tokenPublicPOST/auth/logoutInvalidate active session tokensBearer TokenGET/auth/meFetch authenticated user profileBearer Token Bug Reports (/bug-reports)MethodEndpointDescriptionAccessPOST/bug-reportsCreate a new bug reportBearer TokenGET/bug-reportsRetrieve user's bug reportsBearer TokenGET/bug-reports/:idRetrieve bug report details by IDBearer TokenPATCH/bug-reports/:idUpdate an existing bug reportBearer TokenDELETE/bug-reports/:idDelete a bug reportBearer Token Templates (/templates)MethodEndpointDescriptionAccessPOST/templatesCreate a new bug report templateBearer TokenGET/templatesList user's templatesBearer TokenGET/templates/:idRetrieve template details by IDBearer TokenPATCH/templates/:idUpdate an existing templateBearer TokenDELETE/templates/:idDelete a templateBearer Token
